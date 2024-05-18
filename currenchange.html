@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currenchange</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav id="navbar">
+        <a href="currenchange.html" id="navbar-logo"><img
+                src="https://cse.pusan.ac.kr/sites/cse/images/common/pnu-logo-main.png" id="logo-image"></a>
+        <div class="search">
+            <input type="text" placeholder="검색어 입력" onclick="expand_search()">
+            <img src="https://cdn-icons-png.flaticon.com/512/2866/2866321.png" alt="">
+        </div>
+    </nav>
+
+    <div id="expand-search">
+        <input type="text" placeholder="검색어를 입력하세요. (통화 코드)" id="expand-input">
+        <button class="search-btn" onclick="redirectToSearchPage()"><img
+                src="https://cdn-icons-png.flaticon.com/512/2866/2866321.png" alt=""></button>
+        <button id="close-btn" onclick="close_search()">X</button>
+    </div>
+
+    <div>
+        <h1 class="large-text">환율</h1>
+        <span id="todaycurrent">오늘의 환율</span> <span id="viewtime">(조회시간 : 2024-05-12 21:51:17)</span>
+    </div>
+    <br>
+    <div id="current-table">
+        <div class="box" id="left-box">
+            <div class="country">
+                <img src="#" class="flag"><span class="country-name"><span id="country1"></span></span><span
+                    class="unit"><span id="unit1"></span></span>
+                <br>
+                <span class="exchange-rate"><span id="exchange-rate1"></span></span> <br>
+                <span class="diff"><span id="diff1"></span></span>
+                <br> <br>
+                <div class="table-text">
+                    <span class="table-text-left">송금 보낼 때</span><span class="table-text-right"><span
+                            id="buy1"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">송금 받을 때</span><span class="table-text-right"><span
+                            id="sell1"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">연 이자율</span><span class="table-text-right"><span
+                            id="year1"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">10일 이자율</span><span class="table-text-right"><span
+                            id="10day1"></span></span>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="country">
+                <img src="#" class="flag"><span class="country-name"><span id="country2"></span></span><span
+                    class="unit"><span id="unit2"></span></span>
+                <br>
+                <span class="exchange-rate"><span id="exchange-rate2"></span></span> <br>
+                <span class="diff"><span id="diff2"></span></span>
+                <br> <br>
+                <div class="table-text">
+                    <span class="table-text-left">송금 보낼 때</span><span class="table-text-right"><span
+                            id="buy2"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">송금 받을 때</span><span class="table-text-right"><span
+                            id="sell2"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">연 이자율</span><span class="table-text-right"><span
+                            id="year2"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">10일 이자율</span><span class="table-text-right"><span
+                            id="10day2"></span></span>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="country">
+                <img src="#" class="flag"><span class="country-name"><span id="country3"></span></span><span
+                    class="unit"><span id="unit3"></span></span>
+                <br>
+                <span class="exchange-rate"><span id="exchange-rate3"></span></span> <br>
+                <span class="diff"><span id="diff3"></span></span>
+                <br> <br>
+                <div class="table-text">
+                    <span class="table-text-left">송금 보낼 때</span><span class="table-text-right"><span
+                            id="buy3"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">송금 살 때</span><span class="table-text-right"><span
+                            id="sell3"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">연 이자율</span><span class="table-text-right"><span
+                            id="year3"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">10일 이자율</span><span class="table-text-right"><span
+                            id="10day3"></span></span>
+                </div>
+            </div>
+        </div>
+        <div class="box" id="right-box">
+            <div class="country">
+                <img src="#" class="flag"><span class="country-name"><span id="country4"></span></span><span
+                    class="unit"><span id="unit4"></span></span>
+                <br>
+                <span class="exchange-rate"><span id="exchange-rate4"></span></span> <br>
+                <span class="diff"><span id="diff4"></span></span>
+                <br> <br>
+                <div class="table-text">
+                    <span class="table-text-left">송금 보낼 때</span><span class="table-text-right"><span
+                            id="buy4"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">송금 받을 때</span><span class="table-text-right"><span
+                            id="sell4"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">연 이자율</span><span class="table-text-right"><span
+                            id="year4"></span></span>
+                </div>
+                <hr>
+                <div class="table-text">
+                    <span class="table-text-left">10일 이자율</span><span class="table-text-right"><span
+                            id="10day4"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap-container">
+        <div class="home-container">
+        </div>
+    </div>
+
+    <footer>
+        Copyright
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

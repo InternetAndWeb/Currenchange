@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currenchange</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            viewSearchResult();
+        });
+    </script>
+</head>
+
+<body>
+    <nav id="navbar">
+        <a href="currenchange.html" id="navbar-logo"><img
+                src="https://cse.pusan.ac.kr/sites/cse/images/common/pnu-logo-main.png" id="logo-image"></a>
+        <div class="search">
+            <input type="text" placeholder="검색어 입력" onclick="expand_search()">
+            <img src="https://cdn-icons-png.flaticon.com/512/2866/2866321.png" alt="">
+        </div>
+    </nav>
+
+    <div id="expand-search">
+        <input type="text" placeholder="검색어를 입력하세요. (통화 코드)" id="expand-input">
+        <button class="search-btn" onclick="redirectToSearchPage()"><img
+                src="https://cdn-icons-png.flaticon.com/512/2866/2866321.png" alt=""></button>
+        <button id="close-btn" onclick="close_search()">X</button>
+    </div>
+
+    <div>
+        <h1 class="large-text">환율</h1>
+        <span id="todaycurrent">오늘의 환율</span> <span id="viewtime">(조회시간 : 2024-05-12 21:51:17)</span>
+    </div>
+    <br>
+
+    <div class="searchpage-box">
+        <button class="interest"><img src="https://cdn-icons-png.flaticon.com/512/93/93630.png" alt=""></button>
+        <div class="country">
+            <img src="#" class="searchpage-flag"><span class="searchpage-country-name"><span
+                    id="country-search"></span></span><span class="searchpage-unit"><span
+                    id="unit-search"></span></span>
+            <br>
+            <span class="searchpage-exchange-rate"><span id="exchange-rate-search"></span></span> <br>
+            <span class="searchpage-diff"><span id="diff-search"></span></span>
+            <br> <br>
+            <div class="searchpage-table-text">
+                <span class="table-text-left">송금 보낼 때</span><span class="table-text-right"><span
+                        id="buy-search"></span></span>
+            </div>
+            <hr>
+            <div class="searchpage-table-text">
+                <span class="table-text-left">송금 받을 때</span><span class="table-text-right"><span
+                        id="sell-search"></span></span>
+            </div>
+            <hr>
+            <div class="searchpage-table-text">
+                <span class="table-text-left">연 이자율</span><span class="table-text-right"><span
+                        id="year-search"></span></span>
+            </div>
+            <hr>
+            <div class="searchpage-table-text">
+                <span class="table-text-left">10일 이자율</span><span class="table-text-right"><span
+                        id="10day-search"></span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap-container">
+        <div class="home-container">
+        </div>
+    </div>
+
+    <footer>
+        Copyright
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
