@@ -15,6 +15,47 @@ function close_search() {
     }
 }
 
+function displayCountryFlag(data, order) {
+    const imageUrl = data.data[0].download_url;
+    const flagImage = document.getElementById('country' + order +'Img'); 
+    flagImage.src = imageUrl;
+}
+
+
+function match_country_code(currencyCode, order) {
+    const isoCodes = {
+        'USD': 'US',
+        'EUR': 'EU',
+        'JPY(100)': 'JP',
+        'CNH': 'CN',
+
+        // 이런 식으로 계속 나라와 해당하는 ISO 코드를 추가하세요.
+    };
+
+    const isoCode = isoCodes[currencyCode];
+    if (!isoCode) {
+        console.error('ISO 코드를 찾을 수 없습니다.');
+        return;
+    }
+
+    const apiUrlCountry = `http://apis.data.go.kr/1262000/CountryFlagService2/getCountryFlagList2?ServiceKey=SCkTvRgui0ytJN0tRZIcizzqjJL2U6FXdXlaPcX62q3nVUjL78qp0CT%2BnScSK7viYrIg7s6Rcf7tdV1yB0O3kg%3D%3D&returnType=JSON&numOfRows=10&cond[country_iso_alp2::EQ]=${isoCode}`;
+
+    fetch(apiUrlCountry)
+        .then(response => response.json())
+        .then(data => {
+            displayCountryFlag(data, order);
+        })
+        .catch(error => {
+            console.error('Error fetching country flag data:', error);
+        });
+}
+
+var country1Img = match_country_code('USD', 1);
+var country2Img = match_country_code('EUR', 2);
+var country3Img = match_country_code('JPY(100)', 3);
+var country4Img = match_country_code('CNH', 4);
+
+
 const currentDate = new Date();
 
 const year = currentDate.getFullYear();
@@ -31,7 +72,8 @@ const month2 = (currentDate.getMonth() + 1).toString().padStart(2, '0');
 const day2 = (currentDate.getDate() - 1).toString().padStart(2, '0');
 const yyyymmdd = year2 + month2 + day2;
 
-const yesterday = (currentDate.getDate() - 2).toString().padStart(2, '0');
+// 나중에 고치기 -> 서버에 데이터 없을수도 error carch 추가 (주말인지 계산해서 주말이면 금요일 데이터와 오늘 데이터 비교하기) -> 맨 마지막에 구현//
+const yesterday = (currentDate.getDate() - 1).toString().padStart(2, '0');
 
 const yesterday_yyyymmdd = year2 + month2 + yesterday;
 
