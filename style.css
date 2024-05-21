@@ -1,20 +1,25 @@
+@import url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css');
+
 body {
     margin: 0;
     background-color: #EEEEEE;
     margin-top: 140px;
+    font-family: 'NanumSquareNeo', sans-serif;
 }
 
 #navbar {
-    background: linear-gradient(skyblue, navy);
-    padding: 0px;
+    background: rgba(72, 153, 224, 0.9); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    padding: 0.5rem 1rem; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
     position: fixed;
     top: 0;
     width: 100%;
+    backdrop-filter: blur(10px);
 }
+
 
 .search {
     position: relative;
@@ -309,6 +314,7 @@ h1 {
 .country-name {
     font-weight: 700;
     font-size: 30px;
+    margin: 10px;
 }
 
 .unit {
@@ -329,6 +335,7 @@ h1 {
 
 .table-text {
     font-size: 20px;
+    margin: 5px;
 }
 
 .table-text-right {

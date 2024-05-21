@@ -50,11 +50,6 @@ function match_country_code(currencyCode, order) {
         });
 }
 
-var country1Img = match_country_code('USD', 1);
-var country2Img = match_country_code('EUR', 2);
-var country3Img = match_country_code('JPY(100)', 3);
-var country4Img = match_country_code('CNH', 4);
-
 
 const currentDate = new Date();
 
@@ -91,6 +86,7 @@ Promise.all([fetch(apiUrlToday), fetch(apiUrlYesterday)])
         var yesterdayusdExchange = data[1].find(item => item.cur_unit === 'USD');
         var country1 = document.getElementById('country1');
         country1.textContent = `${usdExchange.cur_nm}`;
+        var country1Img = match_country_code('USD', 1);
         var unit1 = document.getElementById('unit1');
         unit1.textContent = `(${usdExchange.cur_unit})`;
         var exchange1 = document.getElementById('exchange-rate1');
@@ -119,6 +115,7 @@ Promise.all([fetch(apiUrlToday), fetch(apiUrlYesterday)])
         var yesterdayeurExchange = data[1].find(item => item.cur_unit === 'EUR');
         var country2 = document.getElementById('country2');
         country2.textContent = `${eurExchange.cur_nm}`;
+        var country2Img = match_country_code('EUR', 2);
         var unit2 = document.getElementById('unit2');
         unit2.textContent = `(${eurExchange.cur_unit})`;
         var exchange2 = document.getElementById('exchange-rate2');
@@ -147,6 +144,7 @@ Promise.all([fetch(apiUrlToday), fetch(apiUrlYesterday)])
         var yesterdayjpyExchange = data[1].find(item => item.cur_unit === 'JPY(100)');
         var country3 = document.getElementById('country3');
         country3.textContent = `${jpyExchange.cur_nm}`;
+        var country3Img = match_country_code('JPY(100)', 3);
         var unit3 = document.getElementById('unit3');
         unit3.textContent = `(${jpyExchange.cur_unit})`;
         var exchange3 = document.getElementById('exchange-rate3');
@@ -176,6 +174,7 @@ Promise.all([fetch(apiUrlToday), fetch(apiUrlYesterday)])
         var yesterdaycnhExchange = data[1].find(item => item.cur_unit === 'CNH');
         var country4 = document.getElementById('country4');
         country4.textContent = `${cnhExchange.cur_nm}`;
+        var country4Img = match_country_code('CNH', 4);
         var unit4 = document.getElementById('unit4');
         unit4.textContent = `(${cnhExchange.cur_unit})`;
         var exchange4 = document.getElementById('exchange-rate4');
