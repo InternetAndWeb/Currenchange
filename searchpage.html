@@ -24,7 +24,7 @@
     </nav>
 
     <div id="expand-search">
-        <input type="text" placeholder="검색어를 입력하세요. (통화 코드)" id="expand-input">
+        <input type="text" placeholder="검색어를 입력하세요. (한글 국가명)" id="expand-input">
         <button class="search-btn" onclick="redirectToSearchPage()"><img
                 src="https://cdn-icons-png.flaticon.com/512/2866/2866321.png" alt=""></button>
         <button id="close-btn" onclick="close_search()">X</button>
@@ -39,9 +39,10 @@
     <div class="searchpage-box">
         <button class="interest"><img src="https://cdn-icons-png.flaticon.com/512/93/93630.png" alt=""></button>
         <div class="country">
-            <img src="#" class="searchpage-flag"><span class="searchpage-country-name"><span
+            <img src="#" class="searchpage-flag" id="country5Img"><span class="searchpage-country-name"><span
                     id="country-search"></span></span><span class="searchpage-unit"><span
                     id="unit-search"></span></span>
+
             <br>
             <span class="searchpage-exchange-rate"><span id="exchange-rate-search"></span></span> <br>
             <span class="searchpage-diff"><span id="diff-search"></span></span>
