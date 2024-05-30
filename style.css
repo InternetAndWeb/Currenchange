@@ -395,6 +395,7 @@ footer {
 .searchpage-country-name {
     font-weight: 700;
     font-size: 50px;
+    margin: 10px;
 }
 
 .searchpage-unit {
