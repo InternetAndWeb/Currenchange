@@ -267,6 +267,18 @@ h1 {
     flex-wrap: wrap;
 }
 
+#current-table {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#interest-table {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .box {
     min-height: 300px;
     flex-basis: 23%;
@@ -455,3 +467,4 @@ footer {
         border: none;
     }
 }
+

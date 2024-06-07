@@ -108,4 +108,4 @@ https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15076263
     }
 ]
 
-4. 관심 국가 설정 기능 구현 필요
+4. 관심 국가 설정 기능 구현 필요(O)

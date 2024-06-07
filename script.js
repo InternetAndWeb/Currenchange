@@ -71,7 +71,7 @@ function getComparisonDate() {
         default:
             todayDate = new Date(currentDate);
             comparisonDate = new Date(todayDate);
-            comparisonDate.setDate(todayDate.getDate() - 1); //previous day
+            comparisonDate.setDate(todayDate.getDate() - 2); //previous day // 수정 필요함
             break;
     }
 
@@ -212,7 +212,10 @@ function fetchExchangeRates() {
             send4.textContent = `${cnhExchange.yy_efee_r}`;
             var get4 = document.getElementById('10day4');
             get4.textContent = `${cnhExchange.ten_dd_efee_r}`;
-
+            return loadInterestCountries();
+        })
+        .then(() => {
+            // 관심 국가 정보가 로드된 후에 추가 작업 수행 가능
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -379,3 +382,134 @@ function viewSearchResult() {
 document.addEventListener('DOMContentLoaded', function() {
     viewSearchResult();
 });
+
+///////////
+const interests = JSON.parse(localStorage.getItem('interestCountries')) || [];
+
+function loadInterestCountries() {
+    const container = document.getElementById('interest-countries');
+    container.innerHTML = ''; // 기존의 내용을 비워줍니다.
+
+    return new Promise((resolve, reject) => {
+        interests.forEach(countryName => {
+            const countryDiv = document.createElement('div');
+            var mappingValue = countryCurrencyMap[countryName];
+            countryDiv.classList.add('country');
+
+            const { todayDate, comparisonDate } = getComparisonDate();
+            const todayFormatted = formatDate(todayDate);
+            const comparisonFormatted = formatDate(comparisonDate);
+
+            const apiUrlToday = `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=RZuk2sK0yoZiufnYTZbZQvm8wxo5wJvY&searchdate=${todayFormatted}&data=AP01`;
+            const apiUrlComparison = `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=RZuk2sK0yoZiufnYTZbZQvm8wxo5wJvY&searchdate=${comparisonFormatted}&data=AP01`;
+            const apiUrlCountry = `http://apis.data.go.kr/1262000/CountryFlagService2/getCountryFlagList2?ServiceKey=SCkTvRgui0ytJN0tRZIcizzqjJL2U6FXdXlaPcX62q3nVUjL78qp0CT%2BnScSK7viYrIg7s6Rcf7tdV1yB0O3kg%3D%3D&returnType=JSON&numOfRows=10&cond[country_nm::EQ]=${countryName}`;
+
+            countryDiv.innerHTML = `
+                <div class="box">
+                    <div class="country"></div>   
+                        <img src="#" class="flag" id="country-interest-${countryName}">
+                        <span class="country-name" id="country6"></span>
+                        <span class="unit" id="unit-interest-${countryName}"></span>
+                        <br>
+                        <span class="exchange-rate" id="exchange-rate-interest-${countryName}"></span>
+                        <br>
+                        <span class="diff" id="diff-interest-${countryName}"></span>
+                        <br><br>
+                    
+                        <div class="table-text">
+                            <span class="table-text-left">송금 보낼 때</span><span class="table-text-right" id="buy-interest-${countryName}"></span>
+                        </div>
+                        <hr>
+                        <div class="table-text">
+                            <span class="table-text-left">송금 받을 때</span><span class="table-text-right" id="sell-interest-${countryName}"></span>
+                        </div>
+                        <hr>
+                        <div class="table-text">
+                            <span class="table-text-left">연 이자율</span><span class="table-text-right" id="year-interest-${countryName}"></span>
+                        </div>
+                        <hr>
+                        <div class="table-text">
+                            <span class="table-text-left">10일 이자율</span><span class="table-text-right" id="10day-interest-${countryName}"></span>
+                        </div>
+                    </div>
+                </div>   
+            `;
+            container.appendChild(countryDiv);
+            Promise.all([fetch(apiUrlToday), fetch(apiUrlComparison), fetch(apiUrlCountry)])
+                .then(responses => Promise.all(responses.map(response => response.json())))
+                .then(data => {
+                    console.log("설정된 관심 국가 : " + countryName);
+                    console.log("매핑 밸류 : " + mappingValue);
+                    var searchExchange = data[0].find(item => item.cur_unit === mappingValue);
+                    var yesterdayExchange = data[1].find(item => item.cur_unit === mappingValue);
+                    var country_new = countryDiv.querySelector('.country-name');
+                    country_new.textContent = `${searchExchange.cur_nm}`;
+                    const imageUrl = data[2].data[0].download_url;
+                    const flagImage = document.getElementById(`country-interest-${countryName}`);
+                    flagImage.src = imageUrl;
+                    var unit_new = document.getElementById(`unit-interest-${countryName}`);
+                    unit_new.textContent = `(${searchExchange.cur_unit})`;
+                    var exchange_new = document.getElementById(`exchange-rate-interest-${countryName}`);
+                    exchange_new.textContent = `${searchExchange.deal_bas_r}`;
+                    var diff_new = document.getElementById(`diff-interest-${countryName}`);
+                    var replaced_todaydeal = searchExchange.deal_bas_r.replace(',', '');
+                    var replaced_yesterdaydeal = yesterdayExchange.deal_bas_r.replace(',', '');
+                    var diff_value_new = parseFloat(replaced_todaydeal) - parseFloat(replaced_yesterdaydeal);
+                    diff_new.textContent = `${diff_value_new.toFixed(2)}`;
+                    if (diff_value_new > 0) {
+                        diff_new.style.color = 'red';
+                    } else if (diff_value_new < 0) {
+                        diff_new.style.color = 'blue';
+                    }
+                    var buy_new = document.getElementById(`buy-interest-${countryName}`);
+                    buy_new.textContent = `${searchExchange.ttb}`;
+                    var sell_new = document.getElementById(`sell-interest-${countryName}`);
+                    sell_new.textContent = `${searchExchange.tts}`;
+                    var send_new = document.getElementById(`year-interest-${countryName}`);
+                    send_new.textContent = `${searchExchange.yy_efee_r}`;
+                    var get_new = document.getElementById(`10day-interest-${countryName}`);
+                    get_new.textContent = `${searchExchange.ten_dd_efee_r}`;
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        });
+        resolve(); // 모든 작업이 완료되었음을 알림
+    });
+}
+
+
+function getParameterByName(name) {
+    name = name.replace(/[\[\]]/g, "\\$&");
+    const url = window.location.href;
+    const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+    const results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function addInterestCountry() {
+    const countryName = getParameterByName('input');
+    if (!countryName) {
+        console.error('Country name not found in the URL.');
+        return;
+    }
+    
+    if (interests.length >= 4) {
+        alert("관심 국가는 최대 4개까지 추가할 수 있습니다.");
+        return;
+    }
+    if (!interests.includes(countryName)) {
+        interests.push(countryName);
+        localStorage.setItem('interestCountries', JSON.stringify(interests));
+        alert("관심 국가에 추가되었습니다.");
+        loadInterestCountries(); 
+    } else {
+        alert("이미 관심 국가에 추가되었습니다.");
+    }
+}
+
+window.onload = function() {
+    loadInterestCountries();
+}
