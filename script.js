@@ -55,13 +55,13 @@ function getComparisonDate() {
             todayDate = new Date(currentDate);
             todayDate.setDate(currentDate.getDate() - 2); // Friday
             comparisonDate = new Date(todayDate); // Friday
-            document.getElementById('weekend-note').style.display = 'block';
+            //document.getElementById('weekend-note').style.display = 'block'; // 문제 수정 필요
             break;
         case 6: // Saturday
             todayDate = new Date(currentDate);
             todayDate.setDate(currentDate.getDate() - 1); // Friday
             comparisonDate = new Date(todayDate); // Friday
-            document.getElementById('weekend-note').style.display = 'block';
+            //document.getElementById('weekend-note').style.display = 'block'; // 문제 수정 필요
             break;
         case 1: // Monday
             todayDate = new Date(currentDate);
