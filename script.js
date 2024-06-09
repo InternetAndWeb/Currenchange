@@ -491,7 +491,7 @@ function getParameterByName(name) {
 
 function addInterestCountry() {
     const countryName = getParameterByName('input');
-    document.getElementById('interest-icon').src = 'https://cdn-icons-png.flaticon.com/512/48/48710.png'; 
+    document.getElementById('interest-icon').src = './img/icon_star_yellow.png'; 
     if (!countryName) {
         console.error('Country name not found in the URL.');
         return;
