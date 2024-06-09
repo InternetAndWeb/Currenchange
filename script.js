@@ -71,7 +71,7 @@ function getComparisonDate() {
         default:
             todayDate = new Date(currentDate);
             comparisonDate = new Date(todayDate);
-            comparisonDate.setDate(todayDate.getDate() - 2); //previous day // 수정 필요함
+            comparisonDate.setDate(todayDate.getDate() - 1); //previous day
             break;
     }
 
